@@ -1,0 +1,28 @@
+﻿<div class="TextLogContainer">
+    @foreach (var item in Messages)
+    {
+        <div class="TextLogItem">@item</div>
+    }
+</div>
+
+@code
+{
+    private List<string> _log = new();
+    public IReadOnlyList<string> Messages => _log;
+
+    public void Log(string message, int? replace = null)
+    {
+        if (replace.HasValue)
+            _log[_log.Count + replace.Value] = message;
+        else
+            _log.Add(message);
+        StateHasChanged();
+    }
+
+    public void Clear()
+    {
+        _log.Clear();
+        _log.TrimExcess();
+        StateHasChanged();
+    }
+}

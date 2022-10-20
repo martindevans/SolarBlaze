@@ -1,0 +1,53 @@
+﻿@using System.Text.Json
+@using System.Text.Json.Serialization
+@using SolarBlaze.Config
+
+@inject HttpClient Client
+
+@foreach (var topic in Topics)
+{
+    <tr>
+        <td>
+            @topic
+        </td>
+    </tr>
+}
+
+@code
+{
+    [CascadingParameter]
+    public InitialSetup InitialSetup { get; private set; } = null!;
+
+    public IReadOnlyList<string> Topics { get; set; } = Array.Empty<string>();
+    public bool Error { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, $"{InitialSetup.ServerUrl}/GetTopics");
+
+        var client = Client;
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            await using var responseStream = await response.Content.ReadAsStreamAsync();
+
+            var container = await JsonSerializer.DeserializeAsync<TopicsContainer>(responseStream);
+            Topics = container?.Topics ?? Array.Empty<string>();
+        }
+        else
+        {
+            await Console.Error.WriteLineAsync("Failed Fetch");
+            Error = true;
+        }
+
+        StateHasChanged();
+    }
+
+    public class TopicsContainer
+    {
+        [JsonPropertyName("topics")]
+        public string[]? Topics { get; set; }
+    }
+}

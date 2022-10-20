@@ -1,0 +1,31 @@
+﻿@page "/counter"
+
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current Name: @Name</p>
+
+<button class="btn btn-primary" @onclick="Clear">Clear Local Storage</button>
+
+@code
+{
+    public string Name { get; set; } = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await localStorage.SetItemAsync("ID", "20019");
+        await localStorage.SetItemAsync("Name", "John Smith");
+
+        Name = "ID: " + await localStorage.GetItemAsync<string>("ID") + "Name : " + await localStorage.GetItemAsync<string>("Name");
+
+        await base.OnInitializedAsync();
+    }
+
+    public async void Clear()
+    {
+        await localStorage.ClearAsync();
+    }
+}
