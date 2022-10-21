@@ -1,0 +1,61 @@
+﻿@page "/live"
+@using SolarBlaze.Config
+@using SolarBlaze.Extensions
+@using SolarBlaze.Services.MqttSqliteApi
+
+@inject HttpClient Client
+
+<PageTitle>Live Data</PageTitle>
+
+<h1>Live Status</h1>
+
+
+@if (FetchError)
+{
+    <p><em>Network Error</em></p>
+}
+else
+{
+    <CascadingValue Value="@DataContainer">
+        <DataPointDisplay Topic="Topic.PowerPV" />
+        <DataPointDisplay Topic="Topic.PowerCharge" />
+        <DataPointDisplay Topic="Topic.PowerToUser" />
+        <DataPointDisplay Topic="Topic.PowerToGrid" />
+        <DataPointDisplay Topic="Topic.PowerDischarge" />
+    </CascadingValue>
+
+    <Countdown DurationSeconds="30" TimerOut="@Update" />
+}
+
+@code
+{
+    [CascadingParameter]
+    public InitialSetup InitialSetup { get; private set; } = null!;
+
+    public TopicContainer? DataContainer { get; set; }
+    public bool FetchError { get; private set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Update();
+
+        StateHasChanged();
+    }
+
+    private async Task Update()
+    {
+        var client = new MqttSqliteApiClient(InitialSetup.ServerUrl, Client);
+        var response = await client.FetchLatestEvent(Topic.PowerPV | Topic.PowerCharge | Topic.PowerToUser | Topic.PowerToGrid | Topic.PowerDischarge);
+
+        if (!response.IsError)
+        {
+            DataContainer = response.Data;
+        }
+        else
+        {
+            FetchError = true;
+        }
+
+        StateHasChanged();
+    }
+}

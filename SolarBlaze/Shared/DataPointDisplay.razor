@@ -1,0 +1,27 @@
+﻿@using SolarBlaze.Services.MqttSqliteApi
+
+@{
+    var data = Container?.TryGetTopic(Topic);
+}
+
+<div>
+    <span>@Topic: </span>
+    @if (data.HasValue)
+    {
+        <span>@data.Value.Value</span>
+    }
+    else
+    {
+        <span>Data Unavailable</span>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    [EditorRequired]
+    public Topic Topic { get; set; }
+
+    [CascadingParameter]
+    public TopicContainer? Container { get; set; }
+}

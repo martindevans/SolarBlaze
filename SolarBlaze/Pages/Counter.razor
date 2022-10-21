@@ -1,31 +1,7 @@
 ﻿@page "/counter"
 
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
-
-<PageTitle>Counter</PageTitle>
-
-<h1>Counter</h1>
-
-<p role="status">Current Name: @Name</p>
-
-<button class="btn btn-primary" @onclick="Clear">Clear Local Storage</button>
-
-@code
-{
-    public string Name { get; set; } = "";
-
-    protected override async Task OnInitializedAsync()
-    {
-        await localStorage.SetItemAsync("ID", "20019");
-        await localStorage.SetItemAsync("Name", "John Smith");
-
-        Name = "ID: " + await localStorage.GetItemAsync<string>("ID") + "Name : " + await localStorage.GetItemAsync<string>("Name");
-
-        await base.OnInitializedAsync();
-    }
-
-    public async void Clear()
-    {
-        await localStorage.ClearAsync();
-    }
-}
+<section class="cyberpunk black">
+    <p class="cyberpunk">
+        Cyberpunk is a subgenre of science fiction in a dystopian <a href="#">futuristic setting that</a> tends to focus on a "combination of low-life and high tech"[1] featuring advanced technological and scientific achievements, such as artificial intelligence and cybernetics, juxtaposed with a degree of breakdown or radical change in the social order.[2] Much of cyberpunk is rooted in the New Wave science fiction movement of the 1960s and 1970s, when writers like Philip K. Dick, Roger Zelazny, John Brunner, J. G. Ballard, Philip José Farmer and Harlan Ellison examined the impact of drug culture, technology, and the sexual revolution while avoiding the utopian tendencies of earlier science fiction.
+    </p>
+</section>

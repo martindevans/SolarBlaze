@@ -14,25 +14,45 @@ namespace SolarBlaze.Services.MqttSqliteApi
             _baseUrl = baseUrl.TrimEnd('/');
         }
 
-        public async Task<Response> FetchEventLog(Topic topics, DateTime start, DateTime end, uint limit)
+        public async Task<Response<TopicLogContainer>> FetchEventLog(Topic topics, DateTime start, DateTime end, uint limit)
         {
             if (start >= end)
                 throw new ArgumentOutOfRangeException(nameof(start), "start must be < end");
 
-            var names = TopicNames(topics);
+            var names = topics.TopicNames();
 
             var request = new HttpRequestMessage(
                 HttpMethod.Get,
-                $"{_baseUrl}/GetEventLog?start={start.ToUnixTimeSeconds()}&end={end.ToUnixTimeSeconds()}&topics={string.Join("%2C", names)}&limit={limit}");
+                $"{_baseUrl}/GetEventLog?start={start.ToUnixTimeSeconds()}&end={end.ToUnixTimeSeconds()}&topics={string.Join("%2C", names)}&limit={limit}"
+            );
 
             var response = await _client.SendAsync(request);
             if (!response.IsSuccessStatusCode)
-                return Response.Error(response.StatusCode, response.ReasonPhrase);
+                return Response<TopicLogContainer>.Error(response.StatusCode, response.ReasonPhrase);
 
             await using var responseStream = await response.Content.ReadAsStreamAsync();
 
-            var container = await JsonSerializer.DeserializeAsync<TopicsContainer>(responseStream);
-            return Response.Ok(response.StatusCode, container!);
+            var container = await JsonSerializer.DeserializeAsync<TopicLogContainer>(responseStream);
+            return Response<TopicLogContainer>.Ok(response.StatusCode, container!);
+        }
+
+        public async Task<Response<TopicContainer>> FetchLatestEvent(Topic topics)
+        {
+            var names = topics.TopicNames();
+
+            var request = new HttpRequestMessage(
+                HttpMethod.Get,
+                $"{_baseUrl}/GetLatestEvent?topics={string.Join("%2C", names)}"
+            );
+
+            var response = await _client.SendAsync(request);
+            if (!response.IsSuccessStatusCode)
+                return Response<TopicContainer>.Error(response.StatusCode, response.ReasonPhrase);
+
+            await using var responseStream = await response.Content.ReadAsStreamAsync();
+
+            var container = await JsonSerializer.DeserializeAsync<Dictionary<string, DataPoint>>(responseStream);
+            return Response<TopicContainer>.Ok(response.StatusCode, new TopicContainer { Topics = container! });
         }
 
         public async Task<bool> HealthCheck()
@@ -57,9 +77,37 @@ namespace SolarBlaze.Services.MqttSqliteApi
                 return false;
             }
         }
+    }
 
-        #region helpers
-        private static IEnumerable<string> TopicNames(Topic topic)
+    [Flags]
+    public enum Topic
+    {
+        None = 0,
+        All = ~0,
+
+        EnergyChargeDay = 1,
+        EnergyDischargeDay = 2,
+        EnergyPVDay = 4,
+        EnergyPVDay1 = 8,
+        EnergyToGridDay = 16,
+        EnergyToUserDay = 32,
+        PowerCharge = 64,
+        PowerDischarge = 128,
+        PowerPV = 256,
+        PowerPV1 = 512,
+        PowerToGrid = 1024,
+        PowerToUser = 2048,
+        StateOfCharge = 4096,
+        StateOfHealth = 8192,
+        Status = 16384,
+        VoltageBattery = 32768,
+        VoltagePV = 65536,
+        VoltagePV1 = 131072
+    }
+
+    public static class TopicExtensions
+    {
+        public static IEnumerable<string> TopicNames(this Topic topic)
         {
             var flag = 1;
             for (var i = 0; i < 32; i++)
@@ -96,32 +144,5 @@ namespace SolarBlaze.Services.MqttSqliteApi
                 flag *= 2;
             }
         }
-        #endregion
-    }
-
-    [Flags]
-    public enum Topic
-    {
-        None = 0,
-        All = ~0,
-
-        EnergyChargeDay = 1,
-        EnergyDischargeDay = 2,
-        EnergyPVDay = 4,
-        EnergyPVDay1 = 8,
-        EnergyToGridDay = 16,
-        EnergyToUserDay = 32,
-        PowerCharge = 64,
-        PowerDischarge = 128,
-        PowerPV = 256,
-        PowerPV1 = 512,
-        PowerToGrid = 1024,
-        PowerToUser = 2048,
-        StateOfCharge = 4096,
-        StateOfHealth = 8192,
-        Status = 16384,
-        VoltageBattery = 32768,
-        VoltagePV = 65536,
-        VoltagePV1 = 131072
     }
 }
