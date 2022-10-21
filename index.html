@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Solar Blaze</title>
+    <base href="/SolarBlaze/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="SolarBlaze.styles.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+    
+    <style>
+        :root {
+            --main-red: rgb(248, 46, 27);
+            --main-white: rgb(248, 249, 257);
+            --main-black: rgb(1, 1, 21);
+
+            --border-button: rgb(46, 248, 27);
+
+            --bs-body-color: var(--main-white);
+            --bs-body-bg: var(--main-black);
+        }
+
+        .splash-meter {
+            height: 10px;
+            position: relative;
+            background: #000113;
+            overflow: hidden;
+            width: 50%;
+            margin-left: 25%;
+            border: var(--main-red) 1px;
+            border-style: solid;
+        }
+
+        .splash-meter span {
+            position: relative;
+            top: 1px;
+            left: 1px;
+            display: block;
+            height: 7px;
+            border-right: 2px solid transparent;
+            background-clip: content-box
+        }
+
+        .splash-progress {
+            background-color: var(--main-red);
+            animation-fill-mode: both;
+            animation-name: progressBar;
+            animation-duration: 0.75s;
+            animation-timing-function: linear;
+        }
+
+        .splash-vertical-text {
+            position: fixed;
+            right: 0.15em;
+            bottom: 0.15em;
+            writing-mode: sideways-rl;
+            font-size: 196px;
+            mix-blend-mode: screen;
+            color: rgb(7,7,7);
+            user-select: none;
+        }
+
+        @keyframes progressBar {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div style="position: absolute; top: 30vh; width: 100%; color: var(--main-red)">
+            <div style="margin-left: 25%; text-align: left; font-family: ChakraPetch;">
+                <h1 style="font-weight: bold;">SOLAR BLAZE</h1>
+                <h6 style="font-weight: 200">BOOTING...</h6>
+            </div>
+            <div class="splash-meter">
+                <span class="splash-progress"></span>
+            </div>
+        </div>
+    </div>
+    <div class="splash-vertical-text">ルクス</div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.webassembly.js" autostart="true"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+</body>
+
+</html>
