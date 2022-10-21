@@ -369,6 +369,8 @@ h4.cyberpunk {
     font-weight: 200;
     position: relative;
     padding-bottom: 15px;
+    font-family: ChakraPetch;
+    user-select: none;
 }
 
 h2.cyberpunk {
