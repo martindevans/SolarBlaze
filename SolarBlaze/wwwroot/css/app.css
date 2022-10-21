@@ -1,4 +1,5 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url("cyberpunk-2077.css");
 
 @import url("../fonts/Chakra_Petch/ChakraPetch.css");
 @import url("../fonts/Rajdhani/Rajdhani.css");
@@ -69,65 +70,3 @@ a, .btn-link {
 .form-control {
     border-radius: 0;
 }
-
-/*
-    ## Cyberpunk button
-     - https://codepen.io/gwannon/pen/jOMyrBm
-*/
-
-.btn-cyberpunk {
-    --background-color: var(--main-red);
-    display: block;
-    border: none;
-    border-radius: 0%;
-    font-size: 1.5rem;
-    line-height: 100%;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 600;
-    padding: 15px 35px;
-    position: relative;
-    color: #fff;
-    border-right: 3px solid var(--border-button);
-    clip-path: polygon( -1em 0%, calc(100% + 1em) 0%, calc(100% + 1em) 100%, 1em 100%, -1em calc(100% - 2em) );
-    cursor: pointer;
-    background-color: var(--background-color);
-    outline: none;
-}
-
-    .btn-cyberpunk:after {
-        content: "BUTTON";
-        display: block;
-        position: absolute;
-        bottom: 0px;
-        right: 25px;
-        padding: 2px 2px 0px 2px;
-        font-size: 0.6rem;
-        line-height: 9px;
-        color: #000;
-        background-color: #f9f002;
-        border-left: 2px solid var(--border-button);
-    }
-
-    .btn-cyberpunk:before {
-        --outside: 6px;
-        content: "";
-        position: absolute;
-        display: none;
-        background-color: var(--background-color);
-        width: calc(100% + (var(--outside) * 2));
-        height: 12px;
-        top: 0px;
-        left: calc(0px - 1px - var(--outside));
-        border-left: 2px solid var(--border-button);
-        border-right: 2px solid var(--border-button);
-    }
-
-.btn-cyberpunk:hover:before {
-    display: block;
-}
-
-    .btn-cyberpunk:hover {
-        background-color: var(--background-color);
-        border-color: var(--border-button)
-    }

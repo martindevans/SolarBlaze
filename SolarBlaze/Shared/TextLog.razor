@@ -1,9 +1,9 @@
-﻿<div class="TextLogContainer">
+﻿<ul class="cyberpunk">
     @foreach (var item in Messages)
     {
-        <div class="TextLogItem">@item</div>
+        <li class="TextLogItem">@item</li>
     }
-</div>
+</ul>
 
 @code
 {
@@ -17,6 +17,19 @@
         else
             _log.Add(message);
         StateHasChanged();
+    }
+
+    public void Remove(Range range)
+    {
+        var start = range.Start.GetOffset(_log.Count);
+        var end = range.End.GetOffset(_log.Count);
+        _log.RemoveRange(start, end - start);
+    }
+
+    public void Remove(Index index)
+    {
+        var idx = index.GetOffset(_log.Count);
+        _log.RemoveAt(idx);
     }
 
     public void Clear()

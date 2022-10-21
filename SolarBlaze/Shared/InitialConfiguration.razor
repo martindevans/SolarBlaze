@@ -1,4 +1,5 @@
 ﻿@using System.ComponentModel.DataAnnotations
+@using System.Net
 @using Blazored.LocalStorage
 @using SolarBlaze.Config
 @using SolarBlaze.Services.MqttSqliteApi
@@ -6,53 +7,56 @@
 @inject HttpClient Client
 @inject ILocalStorageService localStorage
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container" style="padding-top: 30vh;">
-        <div class="row">
-            <div class="col-sm"></div>
-            <div class="col-sm">
-                <EditForm class="initial-config-form" Model="@Model" OnValidSubmit="@SubmitValid">
-                    <div class="form-floating mb-3">
-                        <InputText @bind-Value="Model.Email" type="email" class="form-control" id="FloatingEmailInput" placeholder="name@example.com" disabled="@Submitting" />
-                        <label for="FloatingEmailInput" style="color: black">Email address</label>
-                    </div>
+<div class="cyberpunk black">
+    <h1 class="cyberpunk" style="padding:1em">Initial Configuration</h1>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container" style="padding-top: 30vh;">
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <EditForm @ref="@Context" class="initial-config-form" Model="@Model" OnValidSubmit="@SubmitValid" OnInvalidSubmit="@SubmitInvalid">
+                        <div class="form-floating mb-3">
+                            <InputText @bind-Value="Model.Email" type="email" class="form-control" id="FloatingEmailInput" placeholder="name@example.com" disabled="@Submitting" />
+                            <label for="FloatingEmailInput" style="color: black">Email address</label>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <InputText @bind-Value="Model.ServerUrl" type="url" class="form-control" id="FloatingUrlInput" placeholder="http://example.com" disabled="@Submitting" />
+                            <label for="FloatingUrlInput" style="color: black">Data Server Url</label>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn-cyberpunk" type="submit" disabled="@Submitting">
+                                Submit_
+                                @if (Submitting)
+                                {
+                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                }
+                            </button>
+                        </div>
+
+                        <DataAnnotationsValidator/>
+                    </EditForm>
                     
-                    <div class="form-floating mb-3">
-                        <InputText @bind-Value="Model.ServerUrl" type="url" class="form-control" id="FloatingUrlInput" placeholder="http://example.com" disabled="@Submitting" />
-                        <label for="FloatingUrlInput" style="color: black">Data Server Url</label>
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <button class="btn-cyberpunk" type="submit" disabled="@Submitting">
-                            Submit_
-                            @if (Submitting)
-                            {
-                                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                            }
-                        </button>
-                    </div>
-
-                    <DataAnnotationsValidator/>
-                    <ValidationSummary/>
-                </EditForm>
-                
-                <TextLog @ref="Log" />
+                    <TextLog @ref="Log" />
+                </div>
+                <div class="col-sm"></div>
             </div>
-            <div class="col-sm"></div>
         </div>
     </div>
 </div>
 
-
 @code
 {
+    private EditForm? Context;
+    private FormModel Model = new();
+
     [EditorRequired]
     [Parameter]
     public MainLayout Parent { get; set; } = null!;
 
-    private FormModel Model = new();
-
-    public bool Submitting { get; private set; }
+    private bool Submitting { get; set; }
     TextLog? Log { get; set; } = null!;
 
     private async Task SubmitValid()
@@ -60,41 +64,49 @@
         Submitting = true;
 
         Log!.Clear();
-        Log.Log("Check Server Connection");
-        Log.Log($" - {Model.ServerUrl!}");
+        Log.Log($"Establishing Connection {Model.ServerUrl!}");
         await Task.Delay(55);
 
         var client = new MqttSqliteApiClient(Model.ServerUrl!, Client);
-        Log.Log(" - Connecting");
         await Task.Delay(55);
 
         var healthy = await client.HealthCheck();
         if (!healthy)
         {
-            Log.Log(" - Connection Failure", replace: -1);
+            Log.Log("Connection Failure", replace: -1);
             Log.Log("Server Unreachable!");
             Submitting = false;
             return;
         }
 
-        Log.Log(" - Connection Established", replace: -1);
+        Log.Log("Connection Established", replace: -1);
         await Task.Delay(95);
 
-        Log.Log("Saving Application State");
-        await Task.Delay(155);
-
-        Log.Log(" - Serializing");
-        await Task.Delay(89);
+        Log.Log("Serializing Application State");
+        await Task.Delay(185);
 
         var state = new InitialSetup(Model.Email!, Model.ServerUrl!);
         await localStorage.SetItemAsync("InitialSetup", state);
-        Log.Log(" - Serialized", replace: -1);
+        Log.Log("Serialized Application State", replace: -1);
         await Task.Delay(99);
 
-        Log.Log("Reloading Application State");
+        Log.Log("Reloading Application");
         await Task.Delay(755);
 
         await Parent.Refresh();
+    }
+
+    private async Task SubmitInvalid()
+    {
+        Log!.Clear();
+        Log.Log("Invalid Submission");
+        await Task.Delay(199);
+
+        foreach (var message in Context?.EditContext?.GetValidationMessages() ?? Array.Empty<string>())
+        {
+            Log.Log($"{message}");
+            await Task.Delay(55);
+        }
     }
 
     public class FormModel
