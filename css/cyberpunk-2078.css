@@ -526,9 +526,9 @@ section.cyberpunk {
     background-position: -13px -3px;
 }
 
-section.cyberpunk.black .dotted,
-section.cyberpunk.black .dotted:before,
-section.cyberpunk.black .dotted:after {
+.black .dotted,
+.black .dotted:before,
+.black .dotted:after {
     background: var(--yellow-color);
     background-image: radial-gradient(#00000021 1px, transparent 0);
     background-size: 5px 5px;

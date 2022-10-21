@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src *" />
+
+
     <title>Solar Blaze</title>
     <base href="/SolarBlaze/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
@@ -12,15 +15,13 @@
     <link href="manifest.json" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
-    
+
     <style>
         :root {
             --main-red: rgb(248, 46, 27);
             --main-white: rgb(248, 249, 257);
             --main-black: rgb(1, 1, 21);
-
             --border-button: rgb(46, 248, 27);
-
             --bs-body-color: var(--main-white);
             --bs-body-bg: var(--main-black);
         }
@@ -36,15 +37,15 @@
             border-style: solid;
         }
 
-        .splash-meter span {
-            position: relative;
-            top: 1px;
-            left: 1px;
-            display: block;
-            height: 7px;
-            border-right: 2px solid transparent;
-            background-clip: content-box
-        }
+            .splash-meter span {
+                position: relative;
+                top: 1px;
+                left: 1px;
+                display: block;
+                height: 7px;
+                border-right: 2px solid transparent;
+                background-clip: content-box
+            }
 
         .splash-progress {
             background-color: var(--main-red);
@@ -66,8 +67,13 @@
         }
 
         @keyframes progressBar {
-            0% { width: 0; }
-            100% { width: 100%; }
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 100%;
+            }
         }
     </style>
 </head>
