@@ -1,12 +1,9 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
-@import url("cyberpunk-2078.css");
-
 @import url("../fonts/Chakra_Petch/ChakraPetch.css");
 @import url("../fonts/Rajdhani/Rajdhani.css");
 
-html, body {
-    font-family: 'Rajdhani', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+@import url("cyberpunk-2077.css"); /* Phasing out with my own version */
+@import url("cyberpunk-2078.css"); /* My own version */
 
 h1:focus {
     outline: none;

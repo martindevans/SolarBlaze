@@ -57,11 +57,13 @@
             position: fixed;
             right: 0.15em;
             bottom: 0.15em;
-            writing-mode: sideways-rl;
             font-size: 196px;
             mix-blend-mode: screen;
             color: rgb(7,7,7);
             user-select: none;
+            /* writing-mode: sideways-rl; */
+            transform: rotate(0.25turn) translateY(100%);
+            transform-origin: bottom right;
         }
 
         @keyframes progressBar {
@@ -76,7 +78,7 @@
     </style>
 </head>
 
-<body>
+<body class="cyberpunk">
     <div id="app">
         <div style="position: absolute; top: 30vh; width: 100%; color: var(--main-red)">
             <div style="margin-left: 25%; text-align: left; font-family: ChakraPetch;">
@@ -88,7 +90,7 @@
             </div>
         </div>
     </div>
-    <div class="splash-vertical-text">ルクス</div>
+    <div class="splash-vertical-text" style="pointer-events: none;">ルクス</div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.

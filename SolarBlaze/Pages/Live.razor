@@ -22,9 +22,10 @@ else
         <DataPointDisplay Topic="Topic.PowerToUser" />
         <DataPointDisplay Topic="Topic.PowerToGrid" />
         <DataPointDisplay Topic="Topic.PowerDischarge" />
+        <DataPointDisplay Topic="Topic.StateOfCharge" />
     </CascadingValue>
 
-    <Countdown DurationSeconds="30" TimerOut="@Update" />
+    <Countdown @ref="@Countdown" TimerOut="@Update" />
 }
 
 @code
@@ -32,24 +33,31 @@ else
     [CascadingParameter]
     public InitialSetup InitialSetup { get; private set; } = null!;
 
+    public Countdown? Countdown { get; set; }
+
     public TopicContainer? DataContainer { get; set; }
     public bool FetchError { get; private set; }
 
     protected override async Task OnInitializedAsync()
     {
         await Update();
-
         StateHasChanged();
     }
 
     private async Task Update()
     {
         var client = new MqttSqliteApiClient(InitialSetup.ServerUrl, Client);
-        var response = await client.FetchLatestEvent(Topic.PowerPV | Topic.PowerCharge | Topic.PowerToUser | Topic.PowerToGrid | Topic.PowerDischarge);
+        var response = await client.FetchLatestEvent(Topic.PowerPV | Topic.PowerCharge | Topic.PowerToUser | Topic.PowerToGrid | Topic.PowerDischarge | Topic.StateOfCharge);
 
         if (!response.IsError)
         {
             DataContainer = response.Data;
+
+            // Calculate how long until the next data is available (assuming a refresh every 5 minutes)
+            var age = TimeSpan.FromSeconds(DateTime.UtcNow.ToUnixTimeSeconds() - DataContainer.Topics.First().Value.TimeStamp);
+            var nextRefresh = TimeSpan.FromMinutes(5) - age;
+            Countdown?.SetDuration(nextRefresh);
+            Console.WriteLine(nextRefresh.TotalSeconds);
         }
         else
         {

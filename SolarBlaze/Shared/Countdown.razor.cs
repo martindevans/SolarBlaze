@@ -7,19 +7,17 @@ namespace SolarBlaze.Shared
         : ComponentBase, IDisposable
     {
         private System.Timers.Timer _timer = null!;
+        private TimeSpan _duration;
         private int _secondsRemaining;
-
+        
         protected string Time { get; set; } = "00:00";
 
         [Parameter]
         public EventCallback TimerOut { get; set; }
 
-        [Parameter]
-        public int DurationSeconds { get; set; }
-
         protected override void OnInitialized()
         {
-            _secondsRemaining = DurationSeconds;
+            _secondsRemaining = Math.Max(1, (int)_duration.TotalSeconds);
             SetTime();
 
             _timer = new System.Timers.Timer(1000);
@@ -40,7 +38,7 @@ namespace SolarBlaze.Shared
 
             if (_secondsRemaining <= 0)
             {
-                _secondsRemaining = DurationSeconds;
+                _secondsRemaining = (int)_duration.TotalSeconds;
                 await TimerOut.InvokeAsync();
             }
         }
@@ -54,6 +52,13 @@ namespace SolarBlaze.Shared
         {
             _timer.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        public void SetDuration(TimeSpan timespan)
+        {
+            _duration = timespan;
+            _secondsRemaining = (int)_duration.TotalSeconds;
+            StateHasChanged();
         }
     }
 }
