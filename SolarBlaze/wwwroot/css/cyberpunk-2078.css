@@ -136,3 +136,55 @@ body.cyberpunk {
     border: none;
     color: var(--cyberpunk-color-white);
 }
+
+/* Button */
+.cyberpunk button {
+    display: block;
+    border: none;
+    border-radius: 0%;
+    font-size: 1.5rem;
+    line-height: 100%;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 15px 35px;
+    position: relative;
+    color: #fff;
+    border-right: 3px solid var(--cyberpunk-color-contrast);
+    clip-path: polygon( -1em 0%, calc(100% + 1em) 0%, calc(100% + 1em) 100%, 1em 100%, -1em calc(100% - 2em) );
+    cursor: pointer;
+    background-color: var(--cyberpunk-color-main);
+    outline: none;
+}
+
+.cyberpunk button:after {
+    content: "BTN";
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 25px;
+    padding: 2px 2px 0px 2px;
+    font-size: 0.6rem;
+    line-height: 9px;
+    color: #000;
+    background-color: #f9f002;
+    border-left: 2px solid var(--cyberpunk-color-contrast);
+}
+
+.cyberpunk button:before {
+    --outside: 6px;
+    content: "";
+    position: absolute;
+    display: none;
+    background-color: var(--cyberpunk-color-main);
+    width: calc(100% + (var(--outside) * 2));
+    height: 12px;
+    top: 0px;
+    left: calc(0px - 1px - var(--outside));
+    border-left: 2px solid var(--cyberpunk-color-contrast);
+    border-right: 2px solid var(--cyberpunk-color-contrast);
+}
+
+.cyberpunk button:hover:before {
+    display: block;
+}

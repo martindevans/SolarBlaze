@@ -1,18 +1,3 @@
 ﻿::deep .initial-config-form {
     padding-bottom: 1.5em;
 }
-
-.gsection {
-    width: 200px;
-    border: 1px solid #2d2d2d;
-    display: grid;
-    justify-content: center;
-    align-content: center;
-}
-
-.gdiv {
-    color: #fff;
-    background: #2d2d2d;
-    padding: 12px;
-    display: inline-block;
-}
