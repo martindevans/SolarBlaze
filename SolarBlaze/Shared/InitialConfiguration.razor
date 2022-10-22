@@ -75,6 +75,18 @@
             Log.Log("Connection Failure", replace: -1);
             Log.Log("Server Unreachable!");
             Submitting = false;
+
+            // Set URL field to null and revalidate, this will mark the field as invalid
+            var ctx = Context?.EditContext;
+            if (ctx != null)
+            {
+                var url = Model.ServerUrl;
+                Model.ServerUrl = null;
+                ctx.NotifyFieldChanged(ctx.Field(nameof(FormModel.ServerUrl)));
+                Context!.EditContext!.Validate();
+                Model.ServerUrl = url;
+            }
+
             return;
         }
 
