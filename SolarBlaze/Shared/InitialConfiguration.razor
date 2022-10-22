@@ -11,39 +11,37 @@
     <h1>Initial Configuration</h1>
     <hr />
 
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container" style="padding-top: 30vh;">
-            <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm">
-                    <EditForm @ref="@Context" class="initial-config-form" Model="@Model" OnValidSubmit="@SubmitValid" OnInvalidSubmit="@SubmitInvalid">
-                        <div class="form-floating mb-3">
-                            <InputText @bind-Value="Model.Email" type="email" class="form-control" id="FloatingEmailInput" placeholder="name@example.com" disabled="@Submitting" />
-                            <label for="FloatingEmailInput" style="color: black">Email address</label>
-                        </div>
-                        
-                        <div class="form-floating mb-3">
-                            <InputText @bind-Value="Model.ServerUrl" type="url" class="form-control" id="FloatingUrlInput" placeholder="http://example.com" disabled="@Submitting" />
-                            <label for="FloatingUrlInput" style="color: black">Data Server Url</label>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button class="btn-cyberpunk" type="submit" disabled="@Submitting">
-                                Submit_
-                                @if (Submitting)
-                                {
-                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                }
-                            </button>
-                        </div>
-
-                        <DataAnnotationsValidator/>
-                    </EditForm>
+    <div class="container" style="padding-top: 30vh;">
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">
+                <EditForm @ref="@Context" class="initial-config-form" Model="@Model" OnValidSubmit="@SubmitValid" OnInvalidSubmit="@SubmitInvalid">
+                    <div class="form-floating mb-3">
+                        <InputText @bind-Value="Model.Email" type="email" class="form-control" id="FloatingEmailInput" placeholder="name@example.com" disabled="@Submitting" />
+                        <label for="FloatingEmailInput">Email address</label>
+                    </div>
                     
-                    <TextLog @ref="Log" />
-                </div>
-                <div class="col-sm"></div>
+                    <div class="form-floating mb-3">
+                        <InputText @bind-Value="Model.ServerUrl" type="url" class="form-control" id="FloatingUrlInput" placeholder="http://example.com" disabled="@Submitting" />
+                        <label for="FloatingUrlInput">Data Server Url</label>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button class="btn-cyberpunk" type="submit" disabled="@Submitting">
+                            Submit_
+                            @if (Submitting)
+                            {
+                                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            }
+                        </button>
+                    </div>
+
+                    <DataAnnotationsValidator/>
+                </EditForm>
+                
+                <TextLog @ref="Log" />
             </div>
+            <div class="col-sm"></div>
         </div>
     </div>
 </div>
