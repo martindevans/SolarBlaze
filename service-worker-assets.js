@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-ZCRyxx+YtZqb7wvqcXYQnHB7pXPhGtgGl3KCFTA0u8k=",
+      "hash": "sha256-ecd3qjSiU32To+0Uv\/J\/HK9iEUgAn3oPqd3BTd529BQ=",
       "url": "css\/app.css"
     },
     {
@@ -13,7 +13,11 @@
       "url": "css\/bootstrap\/bootstrap.min.css.map"
     },
     {
-      "hash": "sha256-UIoUb94\/04kaQHQInvclKCDZ+yBcyluOENYvhqOOGOM=",
+      "hash": "sha256-WErIKU1QX0wRQsh\/fmc8lll1gRU7VdT9i4NQEm9djOY=",
+      "url": "css\/cyberpunk-2077.css"
+    },
+    {
+      "hash": "sha256-Kc8VJYXBKfQ266N0oDKz2w7Qp+KqzflxbIq3eycEAms=",
       "url": "css\/cyberpunk-2078.css"
     },
     {
@@ -141,7 +145,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-VMAKez\/jZ597F1HZm+upTVwAuuhyistgtMYVZ5PL5cM=",
+      "hash": "sha256-pD1dbt79ckXR3vnNvCODphksMNmU5hXNfjnwJrrZArU=",
       "url": "index.html"
     },
     {
@@ -181,7 +185,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-aR9zhWTTbN\/CXBIwDPdYjdnqY+arH147bFmV+Wj6KIs=",
+      "hash": "sha256-N6cqrQ89ft8xwJxGUB1bCJV7THO6Y+W4vSjwYwY9nnk=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -257,7 +261,7 @@
       "url": "_framework\/netstandard.dll"
     },
     {
-      "hash": "sha256-0IP7WkQzAjpfihlc+IBC\/PZfvMYfYPaHuayNsJWdcfU=",
+      "hash": "sha256-Dco7AjF3FyFSXYpHWZHFAjiuhtLW36yS0jIP5AyK\/kM=",
       "url": "_framework\/SolarBlaze.dll"
     },
     {
@@ -293,7 +297,7 @@
       "url": "_framework\/System.ComponentModel.TypeConverter.dll"
     },
     {
-      "hash": "sha256-L\/0mBJpWLFHznZGZeY7Vk7BFEkYg6AUm+\/PGjCAtX+0=",
+      "hash": "sha256-bRUxaOv7y\/kMJ5Z3vEkGFDwtknvg2AYOl5WpZZZEyZ0=",
       "url": "_framework\/System.Console.dll"
     },
     {
@@ -325,7 +329,7 @@
       "url": "_framework\/System.ObjectModel.dll"
     },
     {
-      "hash": "sha256-tWJbI9Et5wxeMYnJq22FfyHFw6\/Ji0SYHZYj82CLySA=",
+      "hash": "sha256-vQedP8iM7uw+rVds3sd1irL6UsjBd2JvmdC+WBmAfX8=",
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
@@ -341,7 +345,7 @@
       "url": "_framework\/System.Runtime.CompilerServices.Unsafe.dll"
     },
     {
-      "hash": "sha256-x7NUtSTniByZyPDB3tpefEKTIm8u6dqyXk1oA4jVRzg=",
+      "hash": "sha256-\/UBjiQE\/bWzzn1\/WmcZhz10batTPwNnjKTjV2O7kn5s=",
       "url": "_framework\/System.Runtime.dll"
     },
     {
@@ -393,5 +397,5 @@
       "url": "_content\/Toolbelt.Blazor.LoadingBar\/style.min.css"
     }
   ],
-  "version": "cKaH+JAN"
+  "version": "Mn5HKuvV"
 };
