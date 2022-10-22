@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-ecd3qjSiU32To+0Uv\/J\/HK9iEUgAn3oPqd3BTd529BQ=",
+      "hash": "sha256-8BB378opn7bkfeP4TfFNmnBDzLxpi8++A8Y4049prnU=",
       "url": "css\/app.css"
     },
     {
@@ -17,7 +17,7 @@
       "url": "css\/cyberpunk-2077.css"
     },
     {
-      "hash": "sha256-Kc8VJYXBKfQ266N0oDKz2w7Qp+KqzflxbIq3eycEAms=",
+      "hash": "sha256-ejrBFWZL3DA9cPv7pL0sXvnapWZABJJt6\/h54hVP+Rc=",
       "url": "css\/cyberpunk-2078.css"
     },
     {
@@ -185,7 +185,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-N6cqrQ89ft8xwJxGUB1bCJV7THO6Y+W4vSjwYwY9nnk=",
+      "hash": "sha256-j5w7a858XEe4XyuQkm\/bfikyNgIRkYR\/83vtNEWQAxQ=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -261,7 +261,7 @@
       "url": "_framework\/netstandard.dll"
     },
     {
-      "hash": "sha256-Dco7AjF3FyFSXYpHWZHFAjiuhtLW36yS0jIP5AyK\/kM=",
+      "hash": "sha256-pY651kgV8qNT4TDtxgG\/dTigK4mXmdI\/u4D6VGxoZws=",
       "url": "_framework\/SolarBlaze.dll"
     },
     {
@@ -373,7 +373,7 @@
       "url": "_framework\/Toolbelt.Blazor.LoadingBar.dll"
     },
     {
-      "hash": "sha256-4hpXXdusG847WOryWSkT5LzZYkFCzc6J4mia0V\/puaA=",
+      "hash": "sha256-mS+1yALFlX9HWNN6x7d2ooclgLyunvL2mhVMIzD5aCI=",
       "url": "SolarBlaze.styles.css"
     },
     {
@@ -397,5 +397,5 @@
       "url": "_content\/Toolbelt.Blazor.LoadingBar\/style.min.css"
     }
   ],
-  "version": "Mn5HKuvV"
+  "version": "05cfk7xo"
 };

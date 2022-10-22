@@ -2,6 +2,21 @@
 [b-j2m15cjumu] .initial-config-form {
     padding-bottom: 1.5em;
 }
+
+.gsection[b-j2m15cjumu] {
+    width: 200px;
+    border: 1px solid #2d2d2d;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.gdiv[b-j2m15cjumu] {
+    color: #fff;
+    background: #2d2d2d;
+    padding: 12px;
+    display: inline-block;
+}
 /* /Shared/MainLayout.razor.rz.scp.css */
 .page[b-7w4dalkktj] {
     position: relative;
