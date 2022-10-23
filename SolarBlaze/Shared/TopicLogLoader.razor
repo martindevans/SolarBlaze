@@ -1,0 +1,64 @@
+﻿@using SolarBlaze.Services.MqttSqliteApi
+@using SolarBlaze.Config
+@using System.Net
+@inject HttpClient Client
+
+@if (_loading)
+{
+    if (Loading != null)
+        @Loading
+}
+else if (_response == null || _response.IsError)
+{
+    if (Failed != null)
+        @Failed(_response?.Status ?? 0);
+}
+else
+{
+    if (Success != null)
+    {
+        @Success(_response.Data);
+    }
+}
+
+@code {
+    [CascadingParameter]
+    public InitialSetup InitialSetup { get; private set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public Topic Topics { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public TimeSpan Duration { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public DateTime End { get; set; }
+
+    [Parameter]
+    public uint Limit { get; set; } = 9999;
+
+    [Parameter]
+    public RenderFragment<TopicLogContainer>? Success { get; set; }
+
+    [Parameter]
+    public RenderFragment<HttpStatusCode>? Failed { get; set; }
+
+    [Parameter]
+    public RenderFragment? Loading { get; set; }
+
+    private bool _loading = true;
+    private Response<TopicLogContainer>? _response;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = new MqttSqliteApiClient(InitialSetup.ServerUrl, Client);
+        var response = await client.FetchEventLog(Topics, End - Duration, End, Limit);
+
+        _response = response;
+        _loading = false;
+        StateHasChanged();
+    }
+}

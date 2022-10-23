@@ -1,0 +1,14 @@
+﻿@using SolarBlaze.Services.MqttSqliteApi
+
+<RadzenChart>
+    @foreach (var topic in Data.Topics)
+    {
+        <RadzenTopicLogSeries Topic="@topic.Key"></RadzenTopicLogSeries>
+    }
+</RadzenChart>
+
+@code
+{
+    [CascadingParameter]
+    public TopicLogContainer Data { get; set; } = null!;
+}

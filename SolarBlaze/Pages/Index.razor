@@ -1,10 +1,31 @@
-﻿@page "/"
+﻿@using SolarBlaze.Services.MqttSqliteApi
+@using SolarBlaze.Shared.Charts
 
-<PageTitle>Index</PageTitle>
+@page "/"
+
+<PageTitle>SolarBlaze</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
-<MudChartDemo />
-<TopicsList />
+<TopicLogLoader Topics="@Topics" Duration="@TimeSpan.FromDays(1)" End="@DateTime.UtcNow">
+    <Success Context="ctx">
+        <CascadingValue Value="@ctx">
+            <RadzenTopicLogChart />
+        </CascadingValue>
+    </Success>
+
+    <Failed Context="ctx">
+        <p>Oh No! @ctx</p>
+    </Failed>
+
+    <Loading>
+        <p>Hold please...</p>
+    </Loading>
+</TopicLogLoader>
+
+@code
+{
+    public Topic Topics = Topic.StateOfCharge | Topic.PowerPV | Topic.PowerCharge | Topic.PowerDischarge | Topic.PowerToGrid | Topic.PowerToUser;
+}

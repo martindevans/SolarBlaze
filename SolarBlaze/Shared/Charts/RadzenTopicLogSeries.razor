@@ -1,0 +1,38 @@
+﻿@using SolarBlaze.Services.MqttSqliteApi
+
+@if (Data.Topics.ContainsKey(Topic))
+{
+    <RadzenLineSeries Smooth="false"
+                      Data="@Data.Topics[Topic]"
+                      CategoryProperty="@nameof(DataPoint.TimeStamp)"
+                      Title="@Topic"
+                      LineType="LineType.Solid"
+                      ValueProperty="@nameof(DataPoint.Value)">
+        <RadzenValueAxis>
+            <RadzenGridLines Visible="true"/>
+        </RadzenValueAxis>
+        <RadzenCategoryAxis Formatter="@FormatTime">
+            <RadzenGridLines Visible="true" />
+        </RadzenCategoryAxis>
+    </RadzenLineSeries>
+}
+
+@code {
+
+    [CascadingParameter]
+    public TopicLogContainer Data { get; set; } = null!;
+
+    [Parameter]
+    [EditorRequired]
+    public string Topic { get; set; } = null!;
+
+    private string FormatTime(object? value)
+    {
+        if (value is null)
+            return string.Empty;
+
+        var d = Convert.ToDouble(value);
+        var dto = DateTimeOffset.FromUnixTimeSeconds((long)d);
+        return dto.LocalDateTime.ToShortTimeString();
+    }
+}
