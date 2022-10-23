@@ -202,24 +202,6 @@ section.cyberpunk.black p.cyberpunk:before {
     color: var(--yellow-color);
 }
 
-ul.cyberpunk li {
-    list-style: none;
-    position: relative;
-    font-size: 1.2rem;
-}
-
-    ul.cyberpunk li:before {
-        content: " ";
-        top: 0px;
-        left: calc(-1.2rem - 10px);
-        width: 1.2rem;
-        height: 1.2rem;
-        background-color: #000;
-        position: absolute;
-        display: block;
-        clip-path: polygon(0% 10%, 100% 70%, 40% 100%, 50% 70%);
-    }
-
 ol.cyberpunk {
     list-style-type: hiragana-iroha;
     counter-reset: li

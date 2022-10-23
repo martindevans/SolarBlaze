@@ -13,11 +13,11 @@
       "url": "css\/bootstrap\/bootstrap.min.css.map"
     },
     {
-      "hash": "sha256-Pb+XJes8l8WbWNzF1GO9vgGp9oN9oVXuv8N5B0xmBas=",
+      "hash": "sha256-Vnu8tHofZxzsYRVHb46QOM6owhlP9S5EV2Fcfoj08Qk=",
       "url": "css\/cyberpunk-2077.css"
     },
     {
-      "hash": "sha256-L+sEhlaOBNS3zksqAIZVUB\/1RcV6MXTEJGtk+PAD2Qo=",
+      "hash": "sha256-679taj\/FwziSz0l1XOv9SM0sg7\/Ejah6jq+EAkkD71Q=",
       "url": "css\/cyberpunk-2078.css"
     },
     {
@@ -185,7 +185,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-e7uKEkff1pwBwmjCbjldw91FumW2fnQAGd2ZFVPaNYw=",
+      "hash": "sha256-EH2GeCx8a1qR4Nzv7ztYPC8\/w9wQZ8A36y4KwdQ23tQ=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -265,7 +265,7 @@
       "url": "_framework\/Radzen.Blazor.dll"
     },
     {
-      "hash": "sha256-5D2rC1ytitD6y2ZbLz6GdQeDCzryrCFWsksdMXpTRVw=",
+      "hash": "sha256-sseCsjK5n4EVjagaNq3UPuWmIUXGkLK25D3Q7HAMUaY=",
       "url": "_framework\/SolarBlaze.dll"
     },
     {
@@ -581,5 +581,5 @@
       "url": "_content\/Toolbelt.Blazor.LoadingBar\/style.min.css"
     }
   ],
-  "version": "qfF1uV0a"
+  "version": "AOD\/IQmz"
 };
