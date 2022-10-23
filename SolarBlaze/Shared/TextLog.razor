@@ -1,21 +1,24 @@
 ﻿<ul>
     @foreach (var item in Messages)
     {
-        <li class="TextLogItem">@item</li>
+        <li class="@item.Item2.ToString().ToLowerInvariant()">@item.Item1</li>
     }
 </ul>
 
 @code
 {
-    private List<string> _log = new();
-    public IReadOnlyList<string> Messages => _log;
+    private List<(string, LogType)> _log = new();
+    public IReadOnlyList<(string, LogType)> Messages => _log;
 
-    public void Log(string message, int? replace = null)
+    public void Append(string message, LogType type = LogType.Normal)
     {
-        if (replace.HasValue)
-            _log[_log.Count + replace.Value] = message;
-        else
-            _log.Add(message);
+        _log.Add((message, type));
+        StateHasChanged();
+    }
+
+    public void Replace(string message, int replace, LogType type = LogType.Normal)
+    {
+        _log[_log.Count + replace] = (message, type);
         StateHasChanged();
     }
 
@@ -24,12 +27,14 @@
         var start = range.Start.GetOffset(_log.Count);
         var end = range.End.GetOffset(_log.Count);
         _log.RemoveRange(start, end - start);
+        StateHasChanged();
     }
 
     public void Remove(Index index)
     {
         var idx = index.GetOffset(_log.Count);
         _log.RemoveAt(idx);
+        StateHasChanged();
     }
 
     public void Clear()
@@ -37,5 +42,13 @@
         _log.Clear();
         _log.TrimExcess();
         StateHasChanged();
+    }
+
+    public enum LogType
+    {
+        Normal,
+        Valid,
+        Invalid,
+        Processing,
     }
 }

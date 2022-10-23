@@ -63,7 +63,7 @@
         Submitting = true;
 
         Log!.Clear();
-        Log.Log($"Establishing Connection {Model.ServerUrl!}");
+        Log.Append($"Establishing Connection {Model.ServerUrl!}", TextLog.LogType.Processing);
         await Task.Delay(55);
 
         var client = new MqttSqliteApiClient(Model.ServerUrl!, Client);
@@ -72,8 +72,8 @@
         var healthy = await client.HealthCheck();
         if (!healthy)
         {
-            Log.Log("Connection Failure", replace: -1);
-            Log.Log("Server Unreachable!");
+            Log.Replace("Connection Failure", -1, TextLog.LogType.Invalid);
+            Log.Append("Server Unreachable!", TextLog.LogType.Invalid);
             Submitting = false;
 
             // Set URL field to null and revalidate, this will mark the field as invalid
@@ -90,18 +90,18 @@
             return;
         }
 
-        Log.Log("Connection Established", replace: -1);
+        Log.Replace("Connection Established", -1, TextLog.LogType.Valid);
         await Task.Delay(95);
 
-        Log.Log("Serializing Application State");
+        Log.Append("Serializing Application State");
         await Task.Delay(185);
 
         var state = new InitialSetup(Model.Email!, Model.ServerUrl!);
         await localStorage.SetItemAsync("InitialSetup", state);
-        Log.Log("Serialized Application State", replace: -1);
+        Log.Replace("Serialized Application State", -1);
         await Task.Delay(99);
 
-        Log.Log("Reloading Application");
+        Log.Append("Reloading Application");
         await Task.Delay(755);
 
         await Parent.Refresh();
@@ -110,12 +110,12 @@
     private async Task SubmitInvalid()
     {
         Log!.Clear();
-        Log.Log("Invalid Submission");
+        Log.Append("Invalid Submission");
         await Task.Delay(199);
 
         foreach (var message in Context?.EditContext?.GetValidationMessages() ?? Array.Empty<string>())
         {
-            Log.Log($"{message}");
+            Log.Append($"{message}");
             await Task.Delay(55);
         }
     }

@@ -188,3 +188,38 @@ body.cyberpunk {
 .cyberpunk button:hover:before {
     display: block;
 }
+
+/* Lists */
+.cyberpunk ul li {
+    list-style: none;
+    position: relative;
+    font-size: 1.2rem;
+}
+
+    .cyberpunk ul li:before {
+        font-family: 'Icons';
+        content: '\e036';
+        color: var(--cyberpunk-color-neon);
+        text-align: center;
+        font-size: 1.2rem;
+        position: absolute;
+        top: 0px;
+        left: calc(-1.2rem - 10px);
+    }
+
+    .cyberpunk ul li.invalid:before {
+        content: '\e039';
+        color: var(--cyberpunk-color-invalid);
+        left: calc(-1.2rem - 12px);
+    }
+
+    .cyberpunk ul li.valid:before {
+        content: '\e038';
+        color: var(--cyberpunk-color-valid);
+        left: calc(-1.2rem - 12px);
+    }
+
+    .cyberpunk ul li.processing:before {
+        content: '\e041';
+        left: calc(-1.2rem - 12px);
+    }
