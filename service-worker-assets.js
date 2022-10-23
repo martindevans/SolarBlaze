@@ -145,7 +145,7 @@
       "url": "icon-512.png"
     },
     {
-      "hash": "sha256-pD1dbt79ckXR3vnNvCODphksMNmU5hXNfjnwJrrZArU=",
+      "hash": "sha256-j4FDxQHF0\/rNFcP62PcYqABvEdloPl64F\/rr+CHExjY=",
       "url": "index.html"
     },
     {
@@ -397,5 +397,5 @@
       "url": "_content\/Toolbelt.Blazor.LoadingBar\/style.min.css"
     }
   ],
-  "version": "\/PQ9Zp9W"
+  "version": "JyIBgk93"
 };
